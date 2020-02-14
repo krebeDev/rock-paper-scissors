@@ -1,38 +1,398 @@
-.App {
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-child {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header-bar {
+  max-width: 25rem;
+  border: 3px solid hsl(217, 16%, 45%);
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  z-index: 2;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.logo {
+  width: 7rem;
+  height: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+.game-score {
+  background: #fff;
+  padding: 0.25rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.score-title {
+  font-size: 0.8rem;
+  color: #4865f4;
+}
+
+.score-value {
+  font-size: 2.5rem;
+  color: hsl(229, 25%, 31%);
+  font-weight: 700;
+}
+
+.score-value,
+.score-title {
+  padding: 0;
+  margin: 0 auto;
+}
+
+.game-elem {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  background: #fff;
+  border-radius: 50% 55%;
+  padding: 1rem;
+  border: 12px solid;
+}
+
+.game-icon {
+  height: auto;
+  position: absolute;
+}
+
+.paper-elem {
+  border-color: #4865f4;
+  box-shadow: 0 4px hsl(210, 3%, 76%) inset,
+              0 5px rgb(46, 46, 235);
+}
+
+.paper-icon {
+  width: 2.3rem;
+  top: 1rem;
+  left: 1.1rem;
+}
+
+.rock-elem {
+  border-color: #dd405d;
+  box-shadow: 0 4px hsl(210, 3%, 76%) inset,
+    0 5px #dc2e4e;
+}
+
+.rock-icon {
+  width: 2.2rem;
+  top: 1.2rem;
+  left: 1.1rem;
+}
+
+.scissors-elem {
+  border-color: #ec9e0e;
+  box-shadow: 0 4px hsl(210, 3%, 76%) inset,
+    0 5px #976303;
+}
+
+.scissors-icon {
+  width: 2.6rem;
+  top: 0.8rem;
+  left: 1.1rem;
+}
+
+.board {
+  width: 18rem;
+  height: 15rem;
+  margin: 3rem auto 7rem auto;
+  padding: 1rem;
+  position: relative;
+}
+
+.board-elem {
+  position: absolute;
+  cursor: pointer;
+}
+
+.bg-triangle {
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.board-paper {
+  top: -2rem;
+  left: -1rem;
+}
+
+.board-scissors {
+  top: -2rem;
+  right: -1rem;
+}
+
+.board-rock {
+  bottom: -1rem;
+  left: 6rem;
+}
+
+.winner-badge {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 30px #1f3756,
+              0 0 0 60px #1b2e4f,
+              0 0 0 90px #182648;
+}
+
+.btn {
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  border-radius: 7px;
+  text-transform: uppercase;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  outline: none;
+  z-index: 1;
+  position: relative;
+}
+
+.btn-rules {
+  color: #fff;
+  padding: 0.5rem 2rem;
+  background: transparent;
+}
+
+.btn-replay {
+  background: #fff;
+  color:  #dc2e4e;
+  border: none;
+  padding: 0.8rem 3rem;
+}
+
+.modal {
+  position: fixed;
+  top: 7.8rem;
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  height: 100%;
+}
+
+.rules-wrapper {
+  width: 18rem;
+  height: 20rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  margin: auto;
+
+}
+
+.rules-header {
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.rules-content {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.rules-image {
+  width: 100%;
+  height: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.rules-tittle {
+  color: #182648;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.close-icon {
+  cursor: pointer; 
+}
+
+.active-play {
+  width: 22rem;
+  flex-wrap: wrap;
+}
+
+.verdict {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 0 auto 1rem auto;
+  z-index: 2;
+  position: relative;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.picks {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-size: 0.8rem;
+  position: absolute;
+  margin: 1rem auto;
+  width: 8rem;
+  z-index: 2;
+}
+
+.user-pick {
+  left: -1rem;
+}
+
+.house-pick {
+  right: -1rem;
+}
+
+.verdict-col {
+  flex-basis: 100%;
+  width: 100%;
+  margin: 7rem auto;
+}
+
+
+@media (min-width: 768px) {
+ .header-bar {
+    max-width: 40rem;
+    border-width: 4px;
+    padding: 1rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .logo {
+    width: 10rem;
+  }
+
+  .game-score {
+    padding: 0.5rem 2rem;
+  }
+
+  .score-value {
+    font-size: 3.5rem;
+  }
+
+  .score-title {
+    font-size: 1.2rem;
+  }
+
+  .game-elem {
+    border-width: 18px;
+    width: 10rem;
+    height: 10rem;
+    padding: 1.5rem;
+  }
+
+  .paper-icon {
+    width: 4rem;
+    top: 1.5rem;
+    left: 1.8rem;
+  }
+
+  .rock-icon {
+    width: 3.9rem;
+    top: 2rem;
+    left: 1.8rem;
+  }
+
+  .scissors-icon {
+    width: 4rem;
+    top: 1.5rem;
+    left: 1.8rem;
+  }
+
+  .board {
+    width: 30rem;
+    height: 25rem;
+    padding: 3rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+  }
+
+  .board-paper {
+    top: -1rem;
+    left: 1rem;
+  }
+  
+  .board-scissors {
+    top: -1rem;
+    right: 1rem;
+  }
+  
+  .board-rock {
+    bottom: 0;
+    left: 9.7rem;
+  }
+
+  .winner-badge {
+    width: 10rem;
+    height: 10rem;
+    box-shadow: 0 0 0 60px #1f3756,
+                0 0 0 120px #1b2e4f,
+                0 0 0 180px #182648;
+  }
+
+  .btn-rules {
+    margin-right: 5rem;
+  }
+
+  .modal {
+    top: 11.5rem;
+   }
+
+  .rules-wrapper {
+    width: 22rem;
+    height: 24rem;
+  }
+
+  .rules-tittle {
+    font-size: 1.5rem;
+  }
+
+  .active-play {
+    width: 45rem;
+    flex-wrap: nowrap;
+  }
+
+  .verdict{ 
+    font-size: 2.5rem;
+  }
+
+  .picks {
+    font-size: 1.3rem;
+  }
+
+  .user-pick {
+    top: -5rem;
+    left: 1rem;
+  }
+  
+  .house-pick {
+    top: -5rem;
+    left: -2.5rem;
+    width: 15rem;
+
+  }
+
+  .user-choice {
+    order: 1;
+  }
+
+  .verdict-col {
+    order: 2;
+    flex-basis: auto;
+    width: auto;
+    margin: auto;
+    text-align: center;
+
+  }
+  
+  .house-choice {
+    order: 3;
   }
 }
