@@ -4,10 +4,7 @@ import Paper from './../components/paper';
 import Rock from './../components/rock';
 import Scissors from './../components/scissors';
 
-export const getHousePick = (elemArr) => {
-     const selected = elemArr[Math.floor(Math.random()*elemArr.length)];
-     return selected;
-} 
+export const getHousePick = (elemArr) => elemArr[Math.floor(Math.random()*elemArr.length)];
 
 export const setWinner = (a, b) => {
       if (a.name === b.name) {
@@ -38,9 +35,7 @@ export const renderChoice = (choice) => {
       return cType;
 }
 
-export const isWinner  = (obj) => {
-      return obj.winner ? "winner-badge p-relative" : "p-relative";
-}
+export const isWinner  = (obj) => obj.winner ? "winner-badge p-relative" : "p-relative";
 
 export const renderButton = (label, classes, onClick) => {
       return (
