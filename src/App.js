@@ -1,96 +1,83 @@
-import React, { Component, Fragment } from 'react';
-import GameRules from './components/game-rules';
-import Header from './components/header';
-import Starter from './components/starter';
-import { getHousePick, setWinner, isWinner, renderButton, renderChoice } from './utilities/utils';
-import './App.css';
+import React from 'react'
+import Header from './components/Header'
+import PlayBoard from './components/PlayBoard'
+import ResultBoard from './components/ResultBoard'
+import GameRules from './components/GameRules'
+import Button from './components/Button'
+import calculateWinner from './utilities/calculateWinner'
+import { SHAPES } from './utilities/constants.js'
 
-class App extends Component {  
+class App extends React.Component {
   state = {
-    elements: [ "rock", "scissors", "paper" ], 
-    userChoice: { name: "", winner: false, score: 0 },
-    houseChoice: { name: "", winner: false }, 
-    gameRules: false,
-  };
-
-  componentDidMount () {
-    const { userChoice } = this.state;
-    !localStorage.getItem("score") ? 
-      userChoice.score = 0 : userChoice.score = localStorage.getItem("score")
-    this.setState(userChoice);
-  }
-    
-  handlePick = (e) => {
-    const elements = [...this.state.elements];
-    const userChoice = {...this.state.userChoice};
-    const houseChoice = {...this.state.houseChoice};
-
-    userChoice.name = e.currentTarget.id;
-    houseChoice.name = getHousePick(elements);
-    setWinner(userChoice, houseChoice);
-    this.setState({ userChoice, houseChoice });
+    userPick: '',
+    systemPick: '',
+    score: 0,
+    showRules: false,
+    isPlaying: false,
+    winner: '',
   }
 
-  resetGame = () => {
-    const { userChoice, houseChoice } = this.state;
-    userChoice.name = "";
-    userChoice.winner = false;
-    houseChoice.name = "";
-    houseChoice.winner = false;
-    this.setState({ userChoice, houseChoice });
+  componentDidMount() {
+    const score = localStorage.getItem('score') || this.state.score
+    this.setState({ score: score })
   }
 
-  displayRules = () => {
-    let { gameRules } = this.state;
-    gameRules = true;
-    this.setState({ gameRules });    
+  handlePlay = (userShape) => {
+    let newScore = this.state.score
+    const systemPick = SHAPES[Math.floor(Math.random() * SHAPES.length)]
+    const winner = calculateWinner(userShape, systemPick)
+    if (winner === 'user') {
+      newScore++
+    }
+    if (winner === 'system') {
+      newScore--
+    }
+    localStorage.setItem('score', newScore)
+
+    this.setState({
+      systemPick: systemPick,
+      userPick: userShape,
+      score: newScore,
+      isPlaying: true,
+      winner: winner,
+    })
   }
 
-  handleClose = () => {
-    let { gameRules } = this.state;
-    gameRules = false;
-    this.setState({ gameRules });    
+  handleReset = () => {
+    this.setState({ isPlaying: false })
   }
-  
-  render() { 
-    const { userChoice, houseChoice, gameRules } = this.state;
-    const { name: uChoice, score, verdict } = userChoice;  
-    const { name: hChoice } = houseChoice;
 
-  return ( 
-    <Fragment>
-      <Header score={ score }/>
-      { gameRules && <GameRules onClose={ this.handleClose } /> }
-      { uChoice === "" &&  <Starter onPick={this.handlePick}/> }
+  render() {
+    const { userPick, systemPick, score, showRules, isPlaying, winner } =
+      this.state
 
-      { uChoice !== ""  &&
-        <div className="container"> 
-          <div className="board active-play flex-row">
-              <div className="user-choice flex-child">
-                <div className={isWinner(userChoice)}>
-                    {renderChoice(uChoice)}
-                    <h2 className="picks user-pick">You Picked</h2>
-                </div>
-              </div>
+    return (
+      <>
+        <Header score={score} />
+        {isPlaying ? (
+          <ResultBoard
+            userPick={userPick}
+            systemPick={systemPick}
+            winner={winner}
+            reset={this.handleReset}
+          />
+        ) : (
+          <PlayBoard handlePlay={this.handlePlay} />
+        )}
 
-            <div className="house-choice flex-child">
-                <div className={isWinner(houseChoice)}>
-                    {renderChoice(hChoice)}
-                    <h2 className="picks house-pick">The House Picked</h2>
-                </div>
-            </div>
-
-            <div className="verdict-col flex-child">
-                <h2 className="verdict">{verdict}</h2>
-                {renderButton("Play Again", "btn-replay", this.resetGame)}
-            </div>
-        </div> 
-      </div>
-      }
-      { renderButton("Rules", "btn-rules", this.displayRules) }                
-    </Fragment>
-    );
+        <div className='rules-btn-box'>
+          <Button
+            title='Rules'
+            variantClass='btn--rules'
+            onClick={() => this.setState({ showRules: true })}
+          />
+        </div>
+        {showRules && (
+          <GameRules onClose={() => this.setState({ showRules: false })} />
+        )}
+      </>
+    )
   }
 }
 
-export default App;
+export default App

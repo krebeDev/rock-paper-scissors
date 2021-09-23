@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
-import logo from './../assets/logo.svg';
+import React from 'react'
+import logo from './../assets/logo.svg'
 
-class Header extends Component {
-      render() { 
-            return ( 
-                  <header className="header-bar">
-                        <div className="flex-row">
-                              <div className="logo-wrapper">
-                                    <img src={logo} 
-                                          alt="rps logo" 
-                                          className="logo" /> 
-                              </div>
-                              <div className="game-score">
-                                    <h3 className="score-title">Score</h3>
-                                    <p className="score-value">{this.props.score}</p>
-                              </div>
-                        </div>                   
-                  </header>
-             );
-      }
+const Header = ({ score }) => {
+  return (
+    <header className='header-bar'>
+      <div className='flex-block'>
+        <div className='logo-wrapper'>
+          <img src={logo} alt='rock-paper-scissors' className='logo' />
+        </div>
+        <div className='game-score'>
+          <h3 className='game-score_title'>Score</h3>
+          <p className='game-score_value'>{score}</p>
+        </div>
+      </div>
+    </header>
+  )
 }
 
-export default Header;
+export default Header
