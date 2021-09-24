@@ -8,21 +8,21 @@ Web version of the popular Rock, Paper, Scissors game. The algorithm is such tha
 
 ## Game Rules
 
-* Rock > Scissors
-* Paper > Rock 
-* Scissors > Paper
+- Paper beats Rock
+- Rock beats Scissors
+- Scissors beats Paper
 
-[Play Game](https://krebedev.github.io/rock-paper-scissors/)
+[Play Game](https://rockpsc.netlify.app/)
 
 ## Tools
 
-* React v16.12.0
-* HTML5
-* CSS3
+- React v16.12.0
+- HTML5
+- CSS3
 
 ## Setup
 
-To run the app, install it locally using: 
+To run the app, install it locally using:
 
 ```
 $ npm install
@@ -31,7 +31,9 @@ $ npm start
 ```
 
 ## Credits
+
 [Frontend Mentor](https://www.frontendmentor.io/) :sparkles:
 
 ## License
+
 This project is open source and available under the [MIT License](LICENSE.md).
